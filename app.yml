@@ -1,0 +1,20 @@
+---
+- hosts: app
+  sudo: yes
+  gather_facts: no
+  tasks:
+    - name: Sovellus | Asenna riippuvuudet (supervisord)
+      yum: name=supervisor state=present
+
+    - name: Sovellus | Konfiguroi riippuvuudet (supervisord)
+      template: src=templates/app/supervisord.conf.j2 dest=/etc/supervisord.conf
+      notify:
+        - restart supervisord
+
+    - name: Sovellus | luo tiedostot
+      template: src=templates/app/index.html.j2 dest=/home/vagrant/index.html
+
+  handlers:
+    - name: restart supervisord
+      service: name=supervisord state=restarted
+
