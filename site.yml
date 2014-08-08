@@ -1,5 +1,7 @@
 ---
-- hosts: all
-  sudo: yes
+- hosts: all    # Kertoo, että suoritetaan kaikissa koneissa (kerätään faktat)
+  sudo: yes     # Suoritetaan käyttäen sudoa. Sudo on ohjelma jonka avulla normaalista käyttäjästä tulee tilapäisesti ylläpitäjä.
+
+# Linkitetään kaksi YAML tiedostoa lisää
 - include: front.yml
 - include: app.yml
